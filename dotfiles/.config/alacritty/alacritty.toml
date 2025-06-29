@@ -1,0 +1,34 @@
+[general]
+import = [
+  "catppuccin-latte.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 12
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[window.padding]
+x = 10
+y = 10
+
+[terminal.shell]
+program = "tmux"
+args = ["-c", "tmux new-session -A -s 🏠"]
