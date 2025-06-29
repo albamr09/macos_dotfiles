@@ -28,26 +28,28 @@ sketchybar --default \
 sketchybar --add event aerospace_workspace_change
 for sid in $(aerospace list-workspaces --all); do
     case $sid in
-        W) icon="" ; font_size="16.0" ; bg_color="0xff179299" ;;   # cyan
-        T) icon="" ; font_size="17.0" ; bg_color="0xff1e66f5" ;;   # blue
-        P) icon="" ; font_size="17.0" ; bg_color="0xffd20f39" ;;   # red
-        A) icon="" ; font_size="15.0" ; bg_color="0xff40a02b" ;;   # green
-        B) icon="" ; font_size="17.0" ; bg_color="0xffdf8e1d" ;;   # yellow
-        M) icon="" ; font_size="22.0" ; bg_color="0xffea76cb" ;;   # magenta
-        *) icon="$sid" ; font_size="13.0" ; bg_color="0xffbcc0cc" ;; # black default
+        W) icon="" ; font_size="16.0" ; bg_color="0xff179299" ; label="Web" ;;   # cyan
+        T) icon="" ; font_size="17.0" ; bg_color="0xff1e66f5" ; label="Terminal" ;;   # blue
+        P) icon="" ; font_size="17.0" ; bg_color="0xffd20f39" ; label="Home" ;;   # red
+        A) icon="" ; font_size="15.0" ; bg_color="0xff40a02b" ; label="Chat" ;;   # green
+        B) icon="" ; font_size="17.0" ; bg_color="0xffdf8e1d" ; label="Sys" ;;   # yellow
+        M) icon="" ; font_size="16.0" ; bg_color="0xffea76cb" ; label="Mobile" ;;   # magenta
+        *) icon="$sid" ; font_size="13.0" ; bg_color="0xffbcc0cc" ; label="" ;; # black default
     esac
 
     sketchybar --add item space.$sid left \
       --subscribe space.$sid aerospace_workspace_change \
       --set space.$sid \
         icon="$icon" \
-        icon.font="$FONT_FACE:Medium:${font_size}" \
+        icon.font="$FONT_FACE:Bold:${font_size}" \
         background.color=$bg_color \
         background.border_width=1 \
         background.border_color=0xffffffff \
         background.corner_radius=5 \
-        background.height=25 \
+        background.height=27 \
         background.drawing=on \
+        label="${label}" \
+        label.padding_right=10 \
         label.drawing=off \
         click_script="aerospace workspace $sid" \
         script="$CONFIG_DIR/plugins/aerospace.sh $sid"
@@ -67,7 +69,7 @@ sketchybar --add item chevron left \
                 background.border_width=1 \
                 background.border_color=0xffffffff \
                 background.corner_radius=8 \
-                background.height=25 \
+                background.height=27 \
                 background.drawing=on \
                 label.color=0xffffffff \
                 label.padding_left=10 \
@@ -84,7 +86,7 @@ sketchybar --add item clock right \
                 background.border_width=1 \
                 background.border_color=0xffffffff \
                 background.corner_radius=8 \
-                background.height=25 \
+                background.height=27 \
                 background.drawing=on \
                 icon.padding_left=12 \
                 icon.padding_right=8 \
@@ -100,7 +102,7 @@ sketchybar --add item volume right \
                 background.border_width=1 \
                 background.border_color=0xffffffff \
                 background.corner_radius=8 \
-                background.height=25 \
+                background.height=27 \
                 background.drawing=on \
                 icon.padding_left=12 \
                 icon.padding_right=8 \
@@ -117,7 +119,7 @@ sketchybar --add item battery right \
                 background.border_width=1 \
                 background.border_color=0xffffffff \
                 background.corner_radius=8 \
-                background.height=25 \
+                background.height=27 \
                 background.drawing=on \
                 icon.padding_left=12 \
                 icon.padding_right=8 \
