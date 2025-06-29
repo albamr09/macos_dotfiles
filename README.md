@@ -2,6 +2,8 @@
 
 Dotfiles for my Mac
 
+![Showcase](./docs/dotfiles.png)
+
 ## Current setup
 
 - [Aerospace](https://github.com/nikitabobko/AeroSpace)
