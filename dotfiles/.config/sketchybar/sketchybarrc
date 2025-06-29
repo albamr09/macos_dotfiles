@@ -7,7 +7,8 @@ sketchybar -m --bar \
 		position=top \
 		padding_left=10 \
 		padding_right=15 \
-		color=0x00bcbcbc \
+		color=0x11bcbcbc \
+    blur_radius=30 \
 		shadow=off \
 		topmost=off
 
