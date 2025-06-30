@@ -22,7 +22,7 @@ default-root-container-layout = 'accordion'
 default-root-container-orientation = 'auto'
 
 # Mouse follows focus when focused monitor changes
-on-focused-monitor-changed = ['move-mouse window-force-center']
+# on-focused-monitor-changed = ['move-mouse window-force-center']
 on-focus-changed = ['move-mouse window-lazy-center']
 
 # Cmd+h weird thing macos does
