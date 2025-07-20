@@ -35,7 +35,7 @@ for sid in $(aerospace list-workspaces --all); do
         W) icon="" ; font_size="16.0" ; bg_color="0xff179299" ; label="Web" ;;         # cyan
         G) icon="" ; font_size="16.0" ; bg_color="0xff04a5e5" ; label="GUI" ;;         # teal
         M) icon="" ; font_size="16.0" ; bg_color="0xffea76cb" ; label="Mobile" ;;      # magenta
-        B) icon="" ; font_size="17.0" ; bg_color="0xffdf8e1d" ; label="Sys" ;;         # yellow
+        B) icon="" ; font_size="17.0" ; bg_color="0xffdf8e1d" ; label="Back" ;;        # yellow
         P) icon="" ; font_size="17.0" ; bg_color="0xffd20f39" ; label="Home" ;;        # red
         *) icon="$sid" ; font_size="13.0" ; bg_color="0xffbcc0cc" ; label="" ;;         # black default
     esac
