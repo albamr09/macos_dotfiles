@@ -1,0 +1,45 @@
+# Amethyst window manager configuration
+# Place this file at ~/.amethyst.yml or symlink from your dotfiles repo
+
+layouts:
+  - tall
+  - wide
+  - 3column-left
+  - fullscreen
+  - floating
+
+mod1: option
+mod2: shift
+
+focus-follows-mouse: true
+mouse-follows-focus: false
+
+cycle-layout-forward: ["mod1", "space"]
+cycle-layout-backward: ["mod1", "shift", "space"]
+
+focus-ccw: ["mod1", "h"]
+focus-cw: ["mod1", "l"]
+
+swap-ccw: ["mod1", "shift", "h"]
+swap-cw: ["mod1", "shift", "l"]
+
+shrink-main: ["mod1", "left"]
+expand-main: ["mod1", "right"]
+increase-main: ["mod1", "up"]
+decrease-main: ["mod1", "down"]
+
+toggle-float: ["mod1", "t"]
+
+window-margins: true
+window-margin-size: 8
+
+floating:
+  - name: "System Preferences"
+  - name: "Finder"
+  - name: "Preview"
+  - name: "Spotify"
+  - name: "zoom.us"
+
+ignore:
+  - name: "Amethyst"
+  - name: "SystemUIServer"
