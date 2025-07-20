@@ -28,7 +28,16 @@ sketchybar --default \
 ##### Aerospace workspaces #####
 
 sketchybar --add event aerospace_workspace_change
-for sid in $(aerospace list-workspaces --all); do
+
+# Define your desired workspace order
+ordered_workspaces=(C T W G M B P)
+
+# Get current workspace list dynamically
+active_workspaces=($(aerospace list-workspaces --all))
+
+for sid in "${ordered_workspaces[@]}"; do
+  # Only process it if it's currently active
+  if [[ " ${active_workspaces[*]} " =~ " $sid " ]]; then
     case $sid in
         C) icon="" ; font_size="15.0" ; bg_color="0xff40a02b" ; label="Chat" ;;        # green
         T) icon="" ; font_size="17.0" ; bg_color="0xff1e66f5" ; label="Terminal" ;;    # blue
@@ -56,10 +65,10 @@ for sid in $(aerospace list-workspaces --all); do
         label.drawing=off \
         click_script="aerospace workspace $sid" \
         script="$CONFIG_DIR/plugins/aerospace.sh $sid"
-    
-    # Adds space between each workspace
+
     sketchybar --add item spacer.$sid left \
         --set spacer.$sid width=10 drawing=on label.drawing=off background.drawing=off
+  fi
 done
 
 ##### Left Items #####
