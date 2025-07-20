@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+# General settings
+yabai -m config layout stack
+
+yabai -m config window_gap          5
+yabai -m config top_padding         2
+yabai -m config bottom_padding      2
+yabai -m config left_padding        2
+yabai -m config right_padding       2
+
+yabai -m config mouse_follows_focus          off
+# TODO: this is not working
+yabai -m config focus_follows_mouse          on
+yabai -m config window_placement             second_child
+yabai -m config window_opacity               off
+yabai -m config window_opacity_duration      0.0
+yabai -m config active_window_opacity        1.0
+yabai -m config normal_window_opacity        0.90
+
+yabai -m config auto_balance                 on
+
+# Move apps to spaces 
+yabai -m rule --add app="Alacritty"                space=2
+yabai -m rule --add app="Brave Browser"            space=3
+yabai -m rule --add app="Safari"                   space=3
+yabai -m rule --add app="Google Chrome"            space=3
+yabai -m rule --add app="Zen"                      space=3
+yabai -m rule --add app="IntelliJ IDEA"            space=6
+yabai -m rule --add app="DBeaver"                  space=6
+yabai -m rule --add app="Microsoft Storage Explorer" space=6
+yabai -m rule --add app="Xcode"                    space=5
+yabai -m rule --add app="Android Studio"           space=5
+yabai -m rule --add app="Finder"                   space=4
+yabai -m rule --add app="Microsoft Teams"          space=4
+
+# Floating rules
+yabai -m rule --add app="System Preferences"        manage=off
