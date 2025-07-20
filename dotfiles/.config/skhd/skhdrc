@@ -5,7 +5,7 @@ alt - f : yabai -m window --toggle zoom-fullscreen
 alt + shift - space : yabai -m window --toggle float
 
 # Focus window (Alt + h/j/k/l or arrows)
-# TODO: does not focus while on stacked mode
+# In stack layout, directional focus does not work. Use stack navigation below.
 alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
@@ -14,6 +14,11 @@ alt - left  : yabai -m window --focus west
 alt - down  : yabai -m window --focus south
 alt - up    : yabai -m window --focus north
 alt - right : yabai -m window --focus east
+
+# Stack navigation (works in stack layout)
+# TODO: see if I can have same shortcuts
+alt - n : yabai -m window --focus stack.next
+alt - p : yabai -m window --focus stack.prev
 
 # Move window (Alt + Shift + h/j/k/l or arrows)
 # TODO: why can I only move windows rigth-left and not up-down? (while on bsp)
@@ -27,9 +32,7 @@ alt + shift - up    : yabai -m window --swap north
 alt + shift - right : yabai -m window --swap east
 
 # Switch to space (Alt + t/w/m/b/p/c/g)
-# TODO: does not focus
-# TODO: It is not integrated with sketchybar
-# TODO: Spaces are not assignated to concrete screens
+# TODO: For focus to work, SIP must be disabled and scripting addition loaded (sudo yabai --load-sa)
 alt - t : yabai -m space --focus 2
 alt - w : yabai -m space --focus 3
 alt - m : yabai -m space --focus 5
