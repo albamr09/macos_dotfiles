@@ -27,6 +27,8 @@ cmd-alt-h = []
 # Layout
 alt-s = 'layout accordion horizontal vertical' 
 alt-e = 'layout tiles horizontal vertical' 
+alt-f = 'fullscreen'
+alt-shift-space = 'layout floating tiling'
 
 # Focus
 alt-h = 'focus --boundaries-action wrap-around-the-workspace --ignore-floating left'
@@ -48,16 +50,13 @@ alt-shift-up = 'move up'
 alt-shift-l = 'move right'
 alt-shift-right = 'move right'
 
-alt-f = 'fullscreen'
-alt-shift-space = 'layout floating tiling'
-
 # Workspace navigation
 alt-t = 'workspace T'
 alt-w = 'workspace W'
 alt-m = 'workspace M'
 alt-b = 'workspace B'
 alt-p = 'workspace P'
-alt-a = 'workspace A'
+alt-c = 'workspace C'
 alt-g = 'workspace G'
 
 alt-shift-t = 'move-node-to-workspace --focus-follows-window T'
@@ -65,14 +64,14 @@ alt-shift-w = 'move-node-to-workspace --focus-follows-window W'
 alt-shift-m = 'move-node-to-workspace --focus-follows-window M'
 alt-shift-b = 'move-node-to-workspace --focus-follows-window B'
 alt-shift-p = 'move-node-to-workspace --focus-follows-window P'
-alt-shift-a = 'move-node-to-workspace --focus-follows-window A'
+alt-shift-c = 'move-node-to-workspace --focus-follows-window C'
 alt-shift-g = 'move-node-to-workspace --focus-follows-window G'
 
 # Applications
 alt-enter = "exec-and-forget open -na Alacritty"
 alt-shift-enter = "exec-and-forget open -na 'Brave Browser'"
 alt-shift-n = "exec-and-forget open -a Finder"
-alt-c = "exec-and-forget open 'x-apple.systempreferences:com.apple.preference.security'"
+alt-shift-s = "exec-and-forget open 'x-apple.systempreferences:com.apple.preference.security'"
 alt-shift-q = "close --quit-if-last-window"
 
 # General
@@ -109,7 +108,7 @@ alt-r = "mode resize"
 
 # Ensure workspaces are created on different monitors
 [workspace-to-monitor-force-assignment]
-    A = 1
+    C = 1
     T = 2                            
     W = 3
     M = 3
@@ -183,19 +182,19 @@ run = 'move-node-to-workspace --focus-follows-window M'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = 'move-node-to-workspace --focus-follows-window A'
+run = 'move-node-to-workspace --focus-follows-window C'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
-run = 'move-node-to-workspace --focus-follows-window A'
+run = 'move-node-to-workspace --focus-follows-window C'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'python3'
-run = ['layout floating', 'move-node-to-workspace A']
+run = ['layout floating', 'move-node-to-workspace C']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
-run = ['layout floating', 'move-node-to-workspace --focus-follows-window A']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window C']
 
 ########################################################
 # GUI
@@ -211,6 +210,18 @@ run = 'move-node-to-workspace --focus-follows-window G'
 
 [[on-window-detected]]
 if.app-id = 'com.vscodium'
+run = 'move-node-to-workspace --focus-follows-window G'
+
+[[on-window-detected]]
+if.app-id = 'org.libreoffice.script'
+run = 'move-node-to-workspace --focus-follows-window G'
+
+[[on-window-detected]]
+if.app-id = 'com.yourcompany.LibreCAD'
+run = 'move-node-to-workspace --focus-follows-window G'
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
 run = 'move-node-to-workspace --focus-follows-window G'
 
 ########################################################
