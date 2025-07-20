@@ -39,14 +39,14 @@ for sid in "${ordered_workspaces[@]}"; do
   # Only process it if it's currently active
   if [[ " ${active_workspaces[*]} " =~ " $sid " ]]; then
     case $sid in
-        C) icon="" ; font_size="15.0" ; bg_color="0xff40a02b" ; label="Chat" ;;        # green
+        C) icon="" ; font_size="15.0" ; bg_color="0xff40a02b" ; label="Comms" ;;       # green
         T) icon="" ; font_size="17.0" ; bg_color="0xff1e66f5" ; label="Terminal" ;;    # blue
         W) icon="" ; font_size="16.0" ; bg_color="0xff179299" ; label="Web" ;;         # cyan
         G) icon="" ; font_size="16.0" ; bg_color="0xff04a5e5" ; label="GUI" ;;         # teal
         M) icon="" ; font_size="16.0" ; bg_color="0xffea76cb" ; label="Mobile" ;;      # magenta
         B) icon="" ; font_size="17.0" ; bg_color="0xffdf8e1d" ; label="Back" ;;        # yellow
         P) icon="" ; font_size="17.0" ; bg_color="0xffd20f39" ; label="Home" ;;        # red
-        *) icon="$sid" ; font_size="13.0" ; bg_color="0xffbcc0cc" ; label="" ;;         # black default
+        *) icon="$sid" ; font_size="13.0" ; bg_color="0xffbcc0cc" ; label="Other" ;;         # black default
     esac
 
     sketchybar --add item space.$sid left \
