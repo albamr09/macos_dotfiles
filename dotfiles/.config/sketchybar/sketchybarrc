@@ -135,25 +135,5 @@ sketchybar --add item battery right \
 sketchybar --add item spacer.battery right \
            --set spacer.battery "${spacer[@]}"
 
-sketchybar --add item cpu right \
-           --set cpu "${plugin_item[@]}" \
-           --set cpu icon="" \
-                icon.padding_right=1 \
-                background.color=0xffea76cb \
-                script="$PLUGIN_DIR/cpu.sh" update_freq=5
-
-sketchybar --add item spacer.cpu right \
-           --set spacer.cpu "${spacer[@]}"
-
-sketchybar -m --add item ram right \
-           --set ram "${plugin_item[@]}" \
-		       --set ram icon= \
-                icon.padding_right=1 \
-                background.color=0xffdf8e1d \
-                script="$PLUGIN_DIR/ram.sh" update_freq=5
-
-sketchybar --add item spacer.ram right \
-           --set spacer.r "${spacer[@]}"
-
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
