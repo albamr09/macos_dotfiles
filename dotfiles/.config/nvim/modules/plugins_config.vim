@@ -212,6 +212,43 @@ for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
     settings = servers[server_name],
   })
 end
+
+-- Diagnostic popups for linting errors
+vim.diagnostic.config({
+  virtual_text = false,      -- disables inline text, optional
+  signs = true,              -- keep E/W signs
+  underline = true,          -- underline problematic code
+  update_in_insert = false,  -- don't update while typing
+  severity_sort = true,      -- sort errors by severity
+  float = {
+    source = "always",       -- show which LSP source (eslint, pyright, etc.)
+    border = "rounded",      -- rounded border for the popup
+  },
+})
+-- Show diagnostic when cursor hovers over problematic section of code
+local float_win = nil
+
+local function show_cursor_diagnostic()
+  -- Close any existing float first
+  if float_win and vim.api.nvim_win_is_valid(float_win) then
+    vim.api.nvim_win_close(float_win, true)
+    float_win = nil
+  end
+
+  -- Only open if there are diagnostics under cursor
+  local opts = {
+    focusable = false,
+    scope = "cursor",
+    close_events = { "CursorMoved", "BufLeave", "InsertEnter", "WinScrolled" },
+  }
+
+  float_win = vim.diagnostic.open_float(nil, opts)
+end
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  pattern = "*",
+  callback = show_cursor_diagnostic,
+})
 EOF
 
 " -------------- ] Autocompletion [ ----------------
@@ -219,6 +256,8 @@ EOF
 lua << EOF
 -- nvim-cmp setup
 local cmp = require 'cmp'
+local luasnip = require 'luasnip'
+
 cmp.setup {
     snippet = {
         expand = function(args)
@@ -293,7 +332,12 @@ null_ls.setup({
 	sources = {
 		null_ls.builtins.formatting.prettier.with({
 			extra_filetypes = { "xml", "md" },
+      prefer_local = "node_modules/.bin"
 		}),
+    -- ESLint for formatting and auto-fix
+    require("none-ls.formatting.eslint_d").with({
+      prefer_local = "node_modules/.bin"
+    }),
 		null_ls.builtins.formatting.black,
 		null_ls.builtins.formatting.djlint,
 		null_ls.builtins.formatting.isort,
