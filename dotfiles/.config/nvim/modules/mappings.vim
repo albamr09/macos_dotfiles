@@ -67,12 +67,6 @@ nnoremap <leader>fg <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-" Integration with dap
-nnoremap <leader>fdc <cmd>Telescope dap commands<cr>
-nnoremap <leader>fdb <cmd>Telescope dap list_breakpoints<cr>
-nnoremap <leader>fdv <cmd>Telescope dap variables<cr>
-nnoremap <leader>fdf <cmd>Telescope dap frames<cr>
-
 " -------------- ] Markdown Preview [ ----------------
 
 " Open preview
@@ -86,29 +80,6 @@ inoremap <silent> <F11> <C-O>:set spell!<cr>
 " -------------- ] Floating Term [ ----------------
 
 nnoremap <Leader>at :FloatermToggle<CR>
-
-" -------------- ] CPP Clangd Format [ ----------------
-
-nnoremap <Leader>f :<C-u>ClangFormat<CR>
-
-" -------------- ] Debugger [ ----------------
-" To start debugging
-nnoremap <silent> <Leader>ds <Cmd>lua require'dap'.continue()<CR>
-" To stop debugging
-nnoremap <silent> <Leader>dc <Cmd>lua require'dap'.close()<CR>
-" To debug
-nnoremap <silent> <Leader>do <Cmd>lua require'dap'.step_over()<CR>
-nnoremap <silent> <Leader>di <Cmd>lua require'dap'.step_into()<CR>
-nnoremap <silent> <Leader>dso <Cmd>lua require'dap'.step_out()<CR>
-nnoremap <silent> <Leader>db <Cmd>lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <Leader>dB <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-nnoremap <silent> <Leader>dlp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
-nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
-
-" -------------- ] Debugger UI [ ----------------
-
-nnoremap <silent> <Leader>dut <Cmd>lua require'dapui'.toggle()<CR>
 
 " -------------- ] Lazygit [ ----------------
 

@@ -14,7 +14,7 @@
 
 call plug#begin('~/.vim/plugged')
 
-" Devicons
+" Icons
 Plug 'kyazdani42/nvim-web-devicons'
 
 " LSP
@@ -27,15 +27,12 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'windwp/nvim-autopairs'
 
-" Linting
+
+" Custom formatting
 Plug 'nvimtools/none-ls.nvim'
-Plug 'jay-babu/mason-null-ls.nvim'
 Plug 'nvimtools/none-ls-extras.nvim'
 
-" Snippet engine
-Plug 'L3MON4D3/LuaSnip'
-
-" Temas
+" Theme
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
 " File explorer
@@ -44,12 +41,11 @@ Plug 'ryanoasis/vim-devicons'
 
 " Syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'sheerun/vim-polyglot'
 
-" Linea estado abajo
+" Bottom status bar
 Plug 'nvim-lualine/lualine.nvim'
 
-" Linea de identacion
+" Indentation indicators
 Plug 'Yggdroot/indentLine'
 
 " Github
@@ -57,7 +53,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kdheepak/lazygit.nvim'
 
 " Tab navigation
-" Plug 'romgrk/barbar.nvim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Scroll
@@ -79,18 +74,6 @@ Plug 'lervag/vimtex'
 " Floating term
 Plug 'voldikss/vim-floaterm'
 
-" CPP Linting
-Plug 'vim-syntastic/syntastic'
-
-" CPP Clangd Format
-Plug 'rhysd/vim-clang-format'
-
-" Debugger
-Plug 'mfussenegger/nvim-dap'
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'nvim-neotest/nvim-nio'
-Plug 'theHamsta/nvim-dap-virtual-text'
-
-" Tmux                                                                                                               │
+" Tmux
 Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
