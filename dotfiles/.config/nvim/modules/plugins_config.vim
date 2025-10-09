@@ -343,6 +343,7 @@ null_ls.setup({
 			filetypes = { "markdown", "xml", "yaml" },
       prefer_local = "node_modules/.bin",
 		}),
+    null_ls.builtins.formatting.black
 	},
 })
 EOF
