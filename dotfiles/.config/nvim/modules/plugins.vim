@@ -51,6 +51,7 @@ Plug 'Yggdroot/indentLine'
 " Github
 Plug 'airblade/vim-gitgutter'
 Plug 'kdheepak/lazygit.nvim'
+Plug 'f-person/git-blame.nvim'
 
 " Tab navigation
 Plug 'Xuyuanp/nerdtree-git-plugin'
