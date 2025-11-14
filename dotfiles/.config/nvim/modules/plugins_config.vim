@@ -102,6 +102,9 @@ require'telescope'.setup{
     file_ignore_patterns = { 'node_modules' }
   }
 }
+
+-- Integrate lsp code-actions
+require"telescope".load_extension("ui-select")
 EOF
 
 " -------------- ] Markdown Preview [ ----------------
@@ -188,11 +191,28 @@ local on_attach = function(_, bufnr)
     })
   end
 
+  -- Wrapper to include source-level code actions
+  local function code_actions_with_source_whole_file()
+    vim.lsp.buf.code_action({
+      context = {
+        -- Include source actions
+        only = {
+          "source",               
+          "source.fixAll",       
+          "source.organizeImports",
+        }
+      },
+      -- Apply to whole file
+      range = nil
+    })
+  end
+
   ------------------------
   -- ACTIONS
   ------------------------
 	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+  nmap("<leader>cA", code_actions_with_source_whole_file, "[C]ode [A]ction (whole file)")
 	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
 	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
 	nmap("<leader>wl", function()
@@ -207,6 +227,13 @@ local on_attach = function(_, bufnr)
 	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
 	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+
+  ------------------------
+  -- Diagnostics
+  ------------------------
+  nmap('<leader>do', vim.diagnostic.open_float, "[D]iagnostic [O]pen")
+  nmap('<leader>dp', vim.diagnostic.goto_prev, "[D]iagnostic [P]revious")
+  nmap('<leader>dn', vim.diagnostic.goto_next, "[D]iagnostic [N]ext")
 
   ------------------------
   -- DOC
@@ -225,6 +252,22 @@ local on_attach = function(_, bufnr)
     group = vim.api.nvim_create_augroup("LspFormat", { clear = true }),
     buffer = bufnr,
     callback = lsp_format,
+  })
+
+  -- Biome fixAll on save
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("BiomeFixAll", { clear = true }),
+    buffer = bufnr,
+    callback = function()
+      local clients = vim.lsp.get_clients({ name = "biome", buf = bufnr })
+      if #clients == 0 then return end
+      vim.lsp.buf.code_action({ 
+        -- Execute fixAll code action
+        context = { only = { "source.fixAll.biome" } },  
+        -- Apply without user query
+        apply = true
+      })
+    end,
   })
 end
 
@@ -248,42 +291,6 @@ for server_name, server_opts in pairs(servers) do
 end
 
 
--- Diagnostic popups for linting errors
-vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  underline = true,
-  severity_sort = true,
-  float = {
-    source = "always",
-    border = "rounded",
-  },
-})
-
--- Show diagnostic when cursor hovers over problematic section of code
-local float_win = nil
-
-local function show_cursor_diagnostic()
-  -- Close any existing float first
-  if float_win and vim.api.nvim_win_is_valid(float_win) then
-    vim.api.nvim_win_close(float_win, true)
-    float_win = nil
-  end
-
-  -- Only open if there are diagnostics under cursor
-  local opts = {
-    focusable = false,
-    scope = "cursor",
-    close_events = { "CursorMoved", "BufLeave", "InsertEnter", "WinScrolled" },
-  }
-
-  float_win = vim.diagnostic.open_float(nil, opts)
-end
-
-vim.api.nvim_create_autocmd("CursorHold", {
-  pattern = "*",
-  callback = show_cursor_diagnostic,
-})
 EOF
 
 " -------------- ] Autocompletion [ ----------------
