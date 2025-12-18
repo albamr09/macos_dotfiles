@@ -224,14 +224,6 @@ run = 'move-node-to-workspace --focus-follows-window G'
 if.app-id = 'com.todesktop.230313mzl4w4u92'
 run = 'move-node-to-workspace --focus-follows-window G'
 
-########################################################
-# Personal
-########################################################
-
 [[on-window-detected]]
-if.app-id = 'net.ankiweb.dtop'
-run = 'move-node-to-workspace --focus-follows-window P'
-
-[[on-window-detected]]
-if.app-id = 'com.spotify.client'
-run = 'move-node-to-workspace --focus-follows-window P'
+if.app-id = 'com.figma.Desktop'
+run = 'move-node-to-workspace --focus-follows-window G'
