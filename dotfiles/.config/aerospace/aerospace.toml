@@ -181,10 +181,6 @@ run = 'move-node-to-workspace --focus-follows-window M'
 ########################################################
 
 [[on-window-detected]]
-if.app-id = 'com.apple.finder'
-run = 'move-node-to-workspace --focus-follows-window C'
-
-[[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
 run = 'move-node-to-workspace --focus-follows-window C'
 
@@ -203,6 +199,10 @@ run = 'move-node-to-workspace --focus-follows-window C'
 ########################################################
 # GUI
 ########################################################
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'move-node-to-workspace --focus-follows-window G'
 
 [[on-window-detected]]
 if.app-id = 'org.qgis.qgis3'
