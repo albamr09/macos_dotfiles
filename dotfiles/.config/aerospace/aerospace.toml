@@ -196,6 +196,10 @@ run = ['layout floating', 'move-node-to-workspace C']
 if.app-id = 'com.apple.systempreferences'
 run = ['layout floating', 'move-node-to-workspace --focus-follows-window C']
 
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace --focus-follows-window C'
+
 ########################################################
 # GUI
 ########################################################
@@ -226,8 +230,4 @@ run = 'move-node-to-workspace --focus-follows-window G'
 
 [[on-window-detected]]
 if.app-id = 'com.figma.Desktop'
-run = 'move-node-to-workspace --focus-follows-window G'
-
-[[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace --focus-follows-window G'
