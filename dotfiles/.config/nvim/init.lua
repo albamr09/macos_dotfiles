@@ -1,18 +1,25 @@
+---@diagnostic disable: undefined-global avoid vim definition warnings
+
 -----------------------------------
--- General config
+-- General Settings
+-----------------------------------
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.g.mapleader = ","
+vim.opt.completeopt = { "menu", "menuone", "fuzzy", "noinsert" }
 
 -----------------------------------
 -- Plugins
+-----------------------------------
 vim.pack.add { 'https://github.com/nvim-treesitter/nvim-treesitter' }
 vim.pack.add { 'https://github.com/neovim/nvim-lspconfig' }
+vim.pack.add { 'https://github.com/mason-org/mason.nvim' }
+vim.pack.add { 'https://github.com/mason-org/mason-lspconfig.nvim' }
 vim.pack.add { 'https://github.com/catppuccin/nvim' }
-vim.pack.add { 'https://github.com/nvim-lua/plenary.nvim' }  
+vim.pack.add { 'https://github.com/nvim-lua/plenary.nvim' }
 vim.pack.add { 'https://github.com/nvim-telescope/telescope.nvim' }
 vim.pack.add { 'https://github.com/nvim-telescope/telescope-ui-select.nvim' }
 vim.pack.add { 'https://github.com/kdheepak/lazygit.nvim' }
@@ -24,7 +31,7 @@ vim.pack.add { 'https://github.com/christoomey/vim-tmux-navigator' }
 
 -----------------------------------
 -- Theme
-
+-----------------------------------
 vim.o.termguicolors = true
 require("catppuccin").setup({
     flavour = "latte"
@@ -32,13 +39,14 @@ require("catppuccin").setup({
 vim.cmd.colorscheme "catppuccin-nvim"
 
 -----------------------------------
--- File explorer
-
+-- File Explorer
+-----------------------------------
 require("oil").setup()
 
 -----------------------------------
 -- Treesitter
-require('nvim-treesitter').install { 'c', 'javascript', 'jsx', 'tsx', 'typescript', 'python', 'json', 'java' }
+-----------------------------------
+require('nvim-treesitter').install { 'c', 'javascript', 'jsx', 'tsx', 'typescript', 'python', 'json', 'java', 'xml', 'html', 'lua' }
 
 -- Only highlight with tree-sitter
 vim.cmd("syntax off")
@@ -50,11 +58,12 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -----------------------------------
 -- Autopairs
+-----------------------------------
 require("nvim-autopairs").setup()
 
 -----------------------------------
--- Terminal
-
+-- Terminal (toggleterm.nvim)
+-----------------------------------
 require("toggleterm").setup {
     open_mapping = [[<leader>at]],
     direction = 'float',
@@ -65,20 +74,60 @@ require("toggleterm").setup {
 
 -----------------------------------
 -- Git
+-----------------------------------
 vim.g.gitgutter_enabled = 1
 vim.o.updatetime = 100
 
 -----------------------------------
 -- LSP
+-----------------------------------
 
 -- Servers
-vim.lsp.enable("biome")
-vim.lsp.enable("ts_ls")
-vim.lsp.enable("clangd")
-vim.lsp.enable("pyright")
+local servers = {
+  "ts_ls",
+  "biome",
+  "clangd",
+  "pyright",
+  "lua_ls",
+}
 
--- Auto-complete configuration
-vim.opt.completeopt = { "menu", "menuone", "fuzzy", "noinsert" }
+-- Mason (server manager)
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = servers,
+})
+
+-- Server set up
+vim.lsp.config('biome', {
+    root_markers = { 'biome.json' },
+})
+vim.lsp.enable(servers)
+
+
+-- LSP callback helpers
+local function global_code_action()
+    vim.lsp.buf.code_action({ context = { only = { "source", "source.fixAll", "source.organizeImports" } }, range = nil })
+end
+
+local function lsp_format(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+
+  vim.lsp.buf.format({
+    filter = function(client)
+      -- Get all clients attached to current buffer
+      local clients = vim.lsp.get_clients({ bufnr = bufnr })
+      local client_names = vim.tbl_map(function(c)
+        return c.name
+      end, clients)
+
+      -- Prioritize biome over ts_ls
+      return client.name == "biome"
+          or (client.name == "ts_ls"
+              and not vim.tbl_contains(client_names, "biome"))
+    end,
+    bufnr = bufnr,
+  })
+end
 
 -- Enable auto-completion and auto-formatting (see :help lsp-attach example)
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -102,7 +151,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('my.lsp', {clear=false}),
         buffer = ev.buf,
         callback = function()
-          vim.lsp.buf.format({ bufnr = ev.buf, id = client.id, timeout_ms = 1000 })
+          lsp_format(ev.buf)
         end,
       })
     end
@@ -110,7 +159,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -----------------------------------
--- Search
+-- Search (telescope.nvim)
+-----------------------------------
 require("telescope").setup({
   defaults = {
     file_ignore_patterns = { 'node_modules' }
@@ -122,6 +172,7 @@ require("telescope").load_extension("ui-select")
 
 -----------------------------------
 -- Remaps
+-----------------------------------
 local builtin = require('telescope.builtin')
 
 -- Search
@@ -131,10 +182,13 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live gr
 -- Git
 vim.keymap.set('n', '<leader>gg', "<cmd>LazyGit<CR>", { desc = "Lazygit" })
 
+-- LSP
+vim.keymap.set('n', '<leader>f', lsp_format, { desc = 'Format' })
+vim.keymap.set('n', 'grA', global_code_action, { desc = 'Global code action' })
+
 -- LSP + Telescope
-vim.keymap.set('n', 'gr', builtin.lsp_references, { desc = 'Go to references' })
-vim.keymap.set('n', 'gd', builtin.lsp_definitions, { desc = 'Go to definition' })
-vim.keymap.set('n', 'gi', builtin.lsp_implementations, { desc = 'Go to implementation' })
+vim.keymap.set('n', 'grr', builtin.lsp_references, { desc = 'Go to references' })
+vim.keymap.set('n', 'gO', builtin.lsp_document_symbols, { desc = 'List document symbols in the current buffer' })
 
 -- Oil
 vim.keymap.set("n", "<C-B>", "<cmd>Oil<CR>", { desc = "Open parent directory" })
