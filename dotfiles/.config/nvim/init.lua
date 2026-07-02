@@ -185,6 +185,7 @@ vim.keymap.set('n', '<leader>gg', "<cmd>LazyGit<CR>", { desc = "Lazygit" })
 -- LSP
 vim.keymap.set('n', '<leader>f', lsp_format, { desc = 'Format' })
 vim.keymap.set('n', 'grA', global_code_action, { desc = 'Global code action' })
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
 
 -- LSP + Telescope
 vim.keymap.set('n', 'grr', builtin.lsp_references, { desc = 'Go to references' })
