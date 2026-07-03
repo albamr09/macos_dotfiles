@@ -86,6 +86,7 @@ vim.o.updatetime = 100
 local servers = {
   "ts_ls",
   "biome",
+  "oxlint",
   "clangd",
   "pyright",
   "lua_ls",
@@ -100,6 +101,9 @@ require("mason-lspconfig").setup({
 -- Server set up
 vim.lsp.config('biome', {
     root_markers = { 'biome.json' },
+})
+vim.lsp.config('oxlint', {
+    root_markers = { '.oxlintrc.json' },
 })
 vim.lsp.enable(servers)
 
