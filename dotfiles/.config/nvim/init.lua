@@ -41,7 +41,14 @@ vim.cmd.colorscheme "catppuccin-nvim"
 -----------------------------------
 -- File Explorer
 -----------------------------------
-require("oil").setup()
+require("oil").setup({
+    -- Set to true to watch the filesystem for changes and reload oil
+    watch_for_changes = true,
+    view_options = {
+        -- Show files and directories that start with "."
+        show_hidden = true,
+    }
+})
 
 -----------------------------------
 -- Treesitter
