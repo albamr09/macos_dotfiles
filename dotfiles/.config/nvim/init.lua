@@ -53,7 +53,7 @@ require("oil").setup({
 -----------------------------------
 -- Treesitter
 -----------------------------------
-require('nvim-treesitter').install { 'c', 'javascript', 'jsx', 'tsx', 'typescript', 'python', 'json', 'java', 'xml', 'html', 'lua', 'bash', 'dockerfile' }
+require('nvim-treesitter').install { 'c', 'javascript', 'jsx', 'tsx', 'typescript', 'python', 'json', 'java', 'xml', 'html', 'lua', 'bash', 'dockerfile', 'cpp' }
 
 -- Only highlight with tree-sitter
 vim.cmd("syntax off")
@@ -91,18 +91,18 @@ vim.o.updatetime = 100
 
 -- Servers
 local servers = {
-  "ts_ls",
-  "biome",
-  "oxlint",
-  "clangd",
-  "pyright",
-  "lua_ls",
+    "ts_ls",
+    "biome",
+    "oxlint",
+    "clangd",
+    "pyright",
+    "lua_ls",
 }
 
 -- Mason (server manager)
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = servers,
+    ensure_installed = servers,
 })
 
 -- Server set up
@@ -121,61 +121,67 @@ local function global_code_action()
 end
 
 local function lsp_format(bufnr)
-  bufnr = bufnr or vim.api.nvim_get_current_buf()
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
 
-  vim.lsp.buf.format({
-    filter = function(client)
-      -- Get all clients attached to current buffer
-      local clients = vim.lsp.get_clients({ bufnr = bufnr })
-      local client_names = vim.tbl_map(function(c)
+    local clients = vim.lsp.get_clients({ bufnr = bufnr })
+    local client_names = vim.tbl_map(function(c)
         return c.name
-      end, clients)
+    end, clients)
 
-      -- Prioritize biome over ts_ls
-      return client.name == "biome"
-          or (client.name == "ts_ls"
-              and not vim.tbl_contains(client_names, "biome"))
-    end,
-    bufnr = bufnr,
-  })
+    vim.lsp.buf.format({
+        bufnr = bufnr,
+        filter = function(client)
+            if client.name == "biome" then
+                return true
+            end
+
+            -- Prioritize biome over ts
+            if client.name == "ts_ls" then
+                return not vim.tbl_contains(client_names, "biome")
+            end
+
+            -- Allow every other formatter (clangd, lua_ls, etc.)
+            return true
+        end,
+    })
 end
 
 -- Enable auto-completion and auto-formatting (see :help lsp-attach example)
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('my.lsp', {}),
-  callback = function(ev)
-    local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+    group = vim.api.nvim_create_augroup('my.lsp', {}),
+    callback = function(ev)
+        local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
 
-    -- Enable auto-completion for LSP client
-    if client:supports_method('textDocument/completion') then
-      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-      local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-      client.server_capabilities.completionProvider.triggerCharacters = chars
+        -- Enable auto-completion for LSP client
+        if client:supports_method('textDocument/completion') then
+            -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+            local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+            client.server_capabilities.completionProvider.triggerCharacters = chars
 
-      vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = true})
-    end
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
 
-    -- Auto-format on save
-    if not client:supports_method('textDocument/willSaveWaitUntil')
-        and client:supports_method('textDocument/formatting') then
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        group = vim.api.nvim_create_augroup('my.lsp', {clear=false}),
-        buffer = ev.buf,
-        callback = function()
-          lsp_format(ev.buf)
-        end,
-      })
-    end
-  end,
+        -- Auto-format on save
+        if not client:supports_method('textDocument/willSaveWaitUntil')
+            and client:supports_method('textDocument/formatting') then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
+                buffer = ev.buf,
+                callback = function()
+                    lsp_format(ev.buf)
+                end,
+            })
+        end
+    end,
 })
 
 -----------------------------------
 -- Search (telescope.nvim)
 -----------------------------------
 require("telescope").setup({
-  defaults = {
-    file_ignore_patterns = { 'node_modules' }
-  }
+    defaults = {
+        file_ignore_patterns = { 'node_modules' }
+    }
 })
 
 -- Integrate with LSP code actions
