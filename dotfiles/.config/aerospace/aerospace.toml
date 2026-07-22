@@ -148,6 +148,10 @@ run = 'move-node-to-workspace --focus-follows-window W'
 if.app-id = 'org.alacritty'
 run = 'move-node-to-workspace --focus-follows-window T'
 
+[[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
+run = 'move-node-to-workspace --focus-follows-window T'
+
 ########################################################
 # Back
 ########################################################
@@ -230,4 +234,12 @@ run = 'move-node-to-workspace --focus-follows-window G'
 
 [[on-window-detected]]
 if.app-id = 'com.figma.Desktop'
+run = 'move-node-to-workspace --focus-follows-window G'
+
+[[on-window-detected]]
+if.app-id = 'com.autodesk.AutoCAD2026'
+run = 'move-node-to-workspace --focus-follows-window G'
+
+[[on-window-detected]]
+if.app-id = 'org.xquartz.X11'
 run = 'move-node-to-workspace --focus-follows-window G'
