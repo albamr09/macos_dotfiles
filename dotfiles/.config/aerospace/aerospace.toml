@@ -110,10 +110,10 @@ alt-r = "mode resize"
 [workspace-to-monitor-force-assignment]
     C = 1
     T = 2                            
+    P = 2
     W = 3
     M = 3
     B = 3                            
-    P = 3
     G = 3
 
 ########################################################
@@ -244,10 +244,22 @@ run = 'move-node-to-workspace --focus-follows-window G'
 if.app-id = 'org.xquartz.X11'
 run = 'move-node-to-workspace --focus-follows-window G'
 
+########################################################
+# Home
+########################################################
+
 [[on-window-detected]]
 if.app-id = 'com.FluidApp.app'
-run = 'move-node-to-workspace --focus-follows-window G'
+run = 'move-node-to-workspace --focus-follows-window P'
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace --focus-follows-window P'
+
+[[on-window-detected]]
+if.app-id = 'net.ankiweb.anki'
+run = 'move-node-to-workspace --focus-follows-window P'
 
 [[on-window-detected]]
 if.app-id = 'ai.elementlabs.bionic'
-run = 'move-node-to-workspace --focus-follows-window G'
+run = 'move-node-to-workspace --focus-follows-window P'
