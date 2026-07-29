@@ -1,5 +1,21 @@
 #!/bin/sh
 
+# Imports
+. "$CONFIG_DIR/config.sh"
+
+# Listen to mouse enter/exit events to change the style of the pill
+case "$SENDER" in
+  "mouse.entered")
+    sketchybar --animate tanh "$ANIMATION_DURATION" --set "$NAME" background.color="$GREEN_BRIGHT"
+    exit 0
+    ;;
+  "mouse.exited")
+    sketchybar --animate tanh "$ANIMATION_DURATION" --set "$NAME" background.color="$GREEN"
+    exit 0
+    ;;
+esac
+
+# Plugin
 PERCENTAGE="$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)"
 CHARGING="$(pmset -g batt | grep 'AC Power')"
 
