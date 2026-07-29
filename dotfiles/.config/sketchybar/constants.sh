@@ -1,16 +1,25 @@
 #!/bin/bash
 
+# Style constants
+FONT_SIZE=12.0
+ICON_FONT_SIZE=13.0
+ITEM_HEIGHT=27
+ITEM_PADDING=8
+BORDER_RADIUS=8
+BORDER_WIDTH=1
+ANIMATION_DURATION=8
+
 # Module style constants
 plugin_item=(
-  background.border_width=1
+  background.border_width="$BORDER_WIDTH"
   background.border_color="$BORDER_COLOR"
-  background.corner_radius=8
-  background.height=29
+  background.corner_radius="$BORDER_RADIUS"
+  background.height="$ITEM_HEIGHT"
   background.drawing=on
   label.color="$LABEL_COLOR"
-  label.padding_left=8
-  label.padding_right=8
-  icon.padding_left=8
+  label.padding_left="$ITEM_PADDING"
+  label.padding_right="$ITEM_PADDING"
+  icon.padding_left="$ITEM_PADDING"
   icon.padding_right=1
 )
 
@@ -42,10 +51,6 @@ spacer=(
   background.drawing=off
 )
 
-# Style constants
-ANIMATION_DURATION=8
-FONT_SIZE=12.0
-ICON_FONT_SIZE=13.0
 
 # Workspace table: sets icon, font_size, bg_color, bg_color_bright, label
 # for a given workspace id

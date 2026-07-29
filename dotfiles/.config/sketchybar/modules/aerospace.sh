@@ -20,16 +20,16 @@ for sid in "${ordered_workspaces[@]}"; do
       --set space.$sid \
         icon="$icon" \
         icon.font="$FONT_FACE:Medium:$ICON_FONT_SIZE" \
-        icon.padding_right=10 \
-        icon.padding_left=10 \
+        icon.padding_right="$ITEM_PADDING" \
+        icon.padding_left="$ITEM_PADDING" \
         background.color=$bg_color \
-        background.border_width=1 \
+        background.border_width="$BORDER_WIDTH" \
         background.border_color="$BORDER_COLOR" \
-        background.corner_radius=8 \
-        background.height=29 \
+        background.corner_radius="$BORDER_RADIUS" \
+        background.height="$ITEM_HEIGHT" \
         background.drawing=on \
         label="${label}" \
-        label.padding_right=10 \
+        label.padding_right="$ITEM_PADDING" \
         label.drawing=off \
         click_script="aerospace workspace $sid" \
         script="$SCRIPTS_DIR/aerospace.sh $sid"
