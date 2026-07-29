@@ -7,10 +7,10 @@ SCRIPTS_DIR="$CONFIG_DIR/scripts"
 ##### Defaults
 
 sketchybar --default \
-    icon.font="$FONT_FACE:Medium:15.0" \
+    icon.font="$FONT_FACE:Medium:$ICON_FONT_SIZE" \
     icon.padding_left=8 \
     icon.padding_right=8 \
-    label.font="$FONT_FACE:Medium:14.0" \
+    label.font="$FONT_FACE:Medium:$FONT_SIZE" \
     label.color="$LABEL_COLOR" \
     label.y_offset=0 \
     label.padding_left=1 \

@@ -32,18 +32,23 @@ sketchybar --add item cpu_percent right \
                         label.padding_left=6 label.padding_right=6 \
                         script="$SCRIPTS_DIR/cpu.sh"
 
-sketchybar --add item network_up right \
-           --set network_up icon= \
+sketchybar --add item network_down right \
+           --set network_down icon=\
                         "${stats_label_item[@]}" \
+                        icon.color="$RED" \
                         update_freq=1 \
-                        icon.padding_left=0 icon.padding_right=2 label.padding_right=6 \
+                        icon.font="$FONT_FACE:Bold:9" \
+                        icon.padding_left=0 icon.padding_right=5 label.padding_right=6
+
+sketchybar --add item network_up right \
+           --set network_up icon=\
+                        "${stats_value_item[@]}" \
+                        icon.color="$GREEN" \
+                        update_freq=1 \
+                        icon.padding_left=0 icon.padding_right=5 label.padding_right=6 \
+                        icon.font="$FONT_FACE:Bold:9" \
                         script="$SCRIPTS_DIR/network.sh"
 
-sketchybar --add item network_down right \
-           --set network_down icon= \
-                        "${stats_value_item[@]}" \
-                        update_freq=1 \
-                        icon.padding_left=0 icon.padding_right=2 label.padding_right=6
 
 sketchybar --add item stats_logo right \
            --set stats_logo icon= \

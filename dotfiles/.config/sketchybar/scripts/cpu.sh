@@ -9,4 +9,12 @@ CPU_INFO=$(ps -eo pcpu,user)
 CPU_SYS=$(echo "$CPU_INFO" | grep -v $(whoami) | sed "s/[^ 0-9\.]//g" | awk "{sum+=\$1} END {print sum/(100.0 * $CORE_COUNT)}")
 CPU_USER=$(echo "$CPU_INFO" | grep $(whoami) | sed "s/[^ 0-9\.]//g" | awk "{sum+=\$1} END {print sum/(100.0 * $CORE_COUNT)}")
 
-sketchybar -m --set  cpu_percent label=$(echo "$CPU_SYS $CPU_USER" | awk '{ printf("%02.0f\n", ($1 + $2)*100) }')%
+CPU_USAGE=$(echo "$CPU_SYS $CPU_USER" | awk '{ printf("%02.0f\n", ($1 + $2)*100) }')
+
+sketchybar -m --set  "$NAME" label="$CPU_USAGE%"
+
+if [ "$CPU_USAGE" -gt "80" ]; then 
+    sketchybar -m --set "$NAME" label.color="$RED"
+else 
+    sketchybar -m --set "$NAME" label.color="$LABEL_COLOR"
+fi

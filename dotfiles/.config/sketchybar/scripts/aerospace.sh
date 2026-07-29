@@ -21,7 +21,7 @@ esac
 
 # Plugin
 if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-    sketchybar --set $NAME background.border_width=2 label.drawing=on
+    sketchybar --set $NAME label.drawing=on
 else
-    sketchybar --set $NAME background.border_width=1 label.drawing=off
+    sketchybar --set $NAME label.drawing=off
 fi

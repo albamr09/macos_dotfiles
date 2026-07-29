@@ -19,12 +19,14 @@ for sid in "${ordered_workspaces[@]}"; do
       --subscribe space.$sid aerospace_workspace_change mouse.entered mouse.exited \
       --set space.$sid \
         icon="$icon" \
-        icon.font="$FONT_FACE:Bold:${font_size}" \
+        icon.font="$FONT_FACE:Medium:$ICON_FONT_SIZE" \
+        icon.padding_right=10 \
+        icon.padding_left=10 \
         background.color=$bg_color \
         background.border_width=1 \
         background.border_color="$BORDER_COLOR" \
         background.corner_radius=8 \
-        background.height=27 \
+        background.height=29 \
         background.drawing=on \
         label="${label}" \
         label.padding_right=10 \

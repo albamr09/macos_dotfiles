@@ -22,5 +22,14 @@ else
   UP_FORMAT=$(echo $UP | awk '{ printf "%03.0f kbps", $1}')
 fi
 
-sketchybar -m --set network_down label="$DOWN_FORMAT" icon.highlight=$(if [ "$DOWN" -gt "0" ]; then echo "on"; else echo "off"; fi) \
-                    --set network_up label="$UP_FORMAT" icon.highlight=$(if [ "$UP" -gt "0" ]; then echo "on"; else echo "off"; fi)
+if [ "$DOWN" -gt "0" ]; then 
+    sketchybar -m --set network_down label="$DOWN_FORMAT" icon=↓
+else 
+    sketchybar -m --set network_down label="$DOWN_FORMAT" icon=
+fi
+
+if [ "$UP" -gt "0" ]; then 
+    sketchybar -m --set network_up label="$UP_FORMAT" icon=↑
+else 
+    sketchybar -m --set network_up label="$UP_FORMAT" icon=
+fi
