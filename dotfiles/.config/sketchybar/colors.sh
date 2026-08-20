@@ -12,7 +12,7 @@ export TEAL=0xff04a5e5
 export MAGENTA=0xffea76cb
 export YELLOW=0xffdf8e1d
 export LAVENDER=0xff7287fd
-export GRAY=0xffbcc0cc
+export GRAY=0xff4c4f69
 
 # Bright variants
 export WHITE_BRIGHT=0xffffffff
@@ -24,9 +24,10 @@ export TEAL_BRIGHT=0xff36b7ea
 export MAGENTA_BRIGHT=0xffee91d5
 export YELLOW_BRIGHT=0xffe5a44a
 export LAVENDER_BRIGHT=0xff8e9ffd
-export GRAY_BRIGHT=0xffc9ccd6
+export GRAY_BRIGHT=0xff6c6f85
 
 # Theme constants
 export BAR_COLOR=0x11bcbcbc
 export BORDER_COLOR=$WHITE
 export LABEL_COLOR=$WHITE
+export WORKSPACE_UNFOCUSED_COLOR=$GRAY

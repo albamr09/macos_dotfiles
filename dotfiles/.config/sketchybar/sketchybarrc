@@ -1,7 +1,4 @@
 ##### Imports
-
-FONT_FACE="JetBrainsMono Nerd Font"
-SCRIPTS_DIR="$CONFIG_DIR/scripts"
 . "$CONFIG_DIR/config.sh"
 
 ##### Defaults

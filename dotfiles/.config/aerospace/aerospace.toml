@@ -1,3 +1,5 @@
+config-version = 2
+
 # Run Sketchybar together with AeroSpace
 after-startup-command = ['exec-and-forget sketchybar']
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -11,7 +13,17 @@ accordion-padding = 0
 # Use stacked layout as default, tiling kinda sucks
 default-root-container-layout = 'accordion'
 default-root-container-orientation = 'auto'
-on-focus-changed = ['move-mouse window-lazy-center']
+on-focus-changed = [
+    'move-mouse window-lazy-center',
+    # Let aerospace know there was a change on the workspace
+    'exec-and-forget sketchybar --trigger aerospace_workspace_change'
+]
+on-window-detected = [{
+    if = 'true',
+    check-further-callbacks = true,
+    # Let aerospace know there was a change on the workspace
+    run = 'exec-and-forget sketchybar --trigger aerospace_workspace_change'
+}]
 # Yay!
 focus-follows-mouse.enabled = true
 automatically-unhide-macos-hidden-apps = false
@@ -117,4 +129,3 @@ alt-r = "mode resize"
     M = 3
     B = 3                            
     G = 3
-    G = 1

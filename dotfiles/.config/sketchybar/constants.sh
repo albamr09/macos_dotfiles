@@ -1,10 +1,15 @@
 #!/bin/bash
 
+# General constants
+SCRIPTS_DIR="$CONFIG_DIR/scripts"
+
 # Style constants
+FONT_FACE="JetBrainsMono Nerd Font"
 FONT_SIZE=12.0
 ICON_FONT_SIZE=13.0
 ITEM_HEIGHT=27
-ITEM_PADDING=8
+OUTER_PADDING=8
+INNER_PADDING=3
 BORDER_RADIUS=8
 BORDER_WIDTH=1
 ANIMATION_DURATION=8
@@ -17,10 +22,10 @@ plugin_item=(
   background.height="$ITEM_HEIGHT"
   background.drawing=on
   label.color="$LABEL_COLOR"
-  label.padding_left="$ITEM_PADDING"
-  label.padding_right="$ITEM_PADDING"
-  icon.padding_left="$ITEM_PADDING"
-  icon.padding_right=1
+  label.padding_left="$INNER_PADDING"
+  label.padding_right="$OUTER_PADDING"
+  icon.padding_left="$OUTER_PADDING"
+  icon.padding_right=0
 )
 
 stats_item=(
@@ -52,7 +57,7 @@ spacer=(
 )
 
 
-# Workspace table: sets icon, font_size, bg_color, bg_color_bright, label
+# Workspace table: sets icon, bg_color, bg_color_bright, label
 # for a given workspace id
 aerospace_workspace_config() {
   case "$1" in
