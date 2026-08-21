@@ -53,7 +53,7 @@ require("oil").setup({
 -----------------------------------
 -- Treesitter
 -----------------------------------
-require('nvim-treesitter').install { 'c', 'javascript', 'jsx', 'tsx', 'typescript', 'python', 'json', 'java', 'xml', 'html', 'lua', 'bash', 'dockerfile', 'cpp', 'css', 'toml', 'dart', 'yaml' }
+require('nvim-treesitter').install { 'c', 'javascript', 'jsx', 'tsx', 'typescript', 'python', 'json', 'java', 'xml', 'html', 'lua', 'bash', 'dockerfile', 'cpp', 'css', 'toml', 'dart', 'yaml', 'swift' }
 
 -- Only highlight with tree-sitter
 vim.cmd("syntax off")
