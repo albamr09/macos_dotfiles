@@ -97,6 +97,7 @@ local servers = {
     "clangd",
     "pyright",
     "lua_ls",
+    "jsonls"
 }
 
 -- Mason (server manager)
@@ -137,6 +138,11 @@ local function lsp_format(bufnr)
 
             -- Prioritize biome over ts
             if client.name == "ts_ls" then
+                return not vim.tbl_contains(client_names, "biome")
+            end
+
+            -- Prioritize biome over json-lsp
+            if client.name == "json-lsp" then
                 return not vim.tbl_contains(client_names, "biome")
             end
 
