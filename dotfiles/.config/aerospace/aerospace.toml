@@ -25,7 +25,7 @@ on-window-detected = [{
     run = 'exec-and-forget sketchybar --trigger aerospace_workspace_change'
 }]
 # Yay!
-focus-follows-mouse.enabled = true
+# focus-follows-mouse.enabled = true
 automatically-unhide-macos-hidden-apps = false
 
 ########################################################
