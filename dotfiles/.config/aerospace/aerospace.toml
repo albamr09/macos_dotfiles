@@ -130,8 +130,13 @@ alt-r = "mode resize"
     inner.vertical =    5
     outer.left =        2
     outer.bottom =      2
-    outer.top =         2
     outer.right =       2
+    outer.top = [
+        # Small padding for the notch
+        { monitor."built-in" = 2 },
+        # Add top space for all other monitors
+        35,
+    ]
 
 ########################################################
 # Workspaces
