@@ -1,32 +1,49 @@
 config-version = 2
 
-# Run Sketchybar together with AeroSpace
-after-startup-command = ['exec-and-forget sketchybar']
-exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-]
-
 start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 0
-# Use stacked layout as default, tiling kinda sucks
+# Use stacked layout as default, tiling kinda sucks 
+# (we will be overriding this anyways on the on-window-detected callback)
 default-root-container-layout = 'accordion'
 default-root-container-orientation = 'auto'
+# Yay! Kinda, does not work well when two instances of the same app overlap while on accordion :(
+# focus-follows-mouse.enabled = true
+automatically-unhide-macos-hidden-apps = false
+
+########################################################
+# Event Callbacks
+########################################################
+
+# Run Sketchybar together with AeroSpace
+after-startup-command = ['exec-and-forget sketchybar']
+
+exec-on-workspace-change = ['/bin/bash', '-c',
+    # Window center, else monitor center when the workspace has no window
+    '''aerospace move-mouse window-lazy-center || aerospace move-mouse monitor-lazy-center
+    # Sync Sketchybar with the new workspace
+    sketchybar --trigger aerospace_workspace_change'''
+]
+
 on-focus-changed = [
-    'move-mouse window-lazy-center',
     # Let aerospace know there was a change on the workspace
     'exec-and-forget sketchybar --trigger aerospace_workspace_change'
 ]
-on-window-detected = [{
-    if = 'true',
-    check-further-callbacks = true,
-    # Let aerospace know there was a change on the workspace
-    run = 'exec-and-forget sketchybar --trigger aerospace_workspace_change'
-}]
-# Yay!
-# focus-follows-mouse.enabled = true
-automatically-unhide-macos-hidden-apps = false
+on-window-detected = [
+    # New windows float instead of joining the accordion tree, this avoid weird flickering on most
+    # windows
+    {
+        check-further-callbacks = true,
+        run = 'layout floating',
+    },
+    # Refresh workspace indicators in sketchybar
+    {
+        if = 'true',
+        check-further-callbacks = true,
+        run = 'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+    },
+]
 
 ########################################################
 # Keybindings
