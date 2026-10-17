@@ -97,7 +97,8 @@ local servers = {
     "clangd",
     "pyright",
     "lua_ls",
-    "jsonls"
+    "jsonls",
+    "tailwindcss"
 }
 
 -- Mason (server manager)
