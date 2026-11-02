@@ -91,8 +91,8 @@ vim.o.updatetime = 100
 
 -- Servers
 local servers = {
-    "tsc",
     "ts_ls",
+    "jdtls",
     "biome",
     "clangd",
     "pyright",
