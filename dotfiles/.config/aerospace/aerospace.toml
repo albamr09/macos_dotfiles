@@ -9,7 +9,7 @@ accordion-padding = 0
 default-root-container-layout = 'accordion'
 default-root-container-orientation = 'auto'
 # Yay! Kinda, does not work well when two instances of the same app overlap while on accordion :(
-# focus-follows-mouse.enabled = true
+focus-follows-mouse.enabled = true
 automatically-unhide-macos-hidden-apps = false
 
 ########################################################
