@@ -53,7 +53,7 @@ require("oil").setup({
 -----------------------------------
 -- Treesitter
 -----------------------------------
-require('nvim-treesitter').install { 'c', 'javascript', 'jsx', 'tsx', 'typescript', 'python', 'json', 'java', 'xml', 'html', 'lua', 'bash', 'dockerfile', 'cpp', 'css', 'toml', 'dart', 'yaml', 'swift', 'scss' }
+require('nvim-treesitter').install { 'c', 'javascript', 'jsx', 'tsx', 'typescript', 'python', 'json', 'java', 'xml', 'html', 'lua', 'bash', 'dockerfile', 'cpp', 'css', 'toml', 'dart', 'yaml', 'swift', 'scss', 'sql' }
 
 -- Only highlight with tree-sitter
 vim.cmd("syntax off")
@@ -98,7 +98,8 @@ local servers = {
     "pyright",
     "lua_ls",
     "jsonls",
-    "tailwindcss"
+    "tailwindcss",
+    "postgres_lsp"
 }
 
 -- Mason (server manager)
